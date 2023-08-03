@@ -9,27 +9,27 @@
 int executeCommand(char *line) {
 
     pid_t child_pid;
-    char input[100] = {0};
+    /*char input[100] = {0};*/
     int status;
 
     char *binstr = "/bin/";
     char *xctbl;
     char **tokstr;
-    int env;
+    /*int env;*/
 
-    line[strcspn(line, "\n")] = '\0'; // Fix the line variable name
+    line[strcspn(line, "\n")] = '\0'; /*Fix the line variable name*/
 
     child_pid = fork();
 
     if (child_pid == 0)
     {
-        // This is the child process
-        tokstr = tokenizer(line); // You should have the tokenizer function defined or included.
+        /*This is the child process*/
+        tokstr = tokenizer(line); /*You should have the tokenizer function defined or included*/
 
-        // Check if the command is one of the built-in commands
+        /*Check if the command is one of the built-in commands*/
         if (strcmp(tokstr[0], "ls") == 0)
         {
-            // If the command is "ls", execute it using execvp
+            /*If the command is "ls", execute it using execvp*/
             if (execvp("/bin/ls", tokstr) == -1)
             {
                 perror("Error executing ls");
@@ -39,9 +39,9 @@ int executeCommand(char *line) {
         } else
 
         {
-            // If it's not a built-in command, execute the specified command
+            /*If it's not a built-in command, execute the specified command*/
             xctbl = strcat(binstr, tokstr[0]);
-            // Use environ as the third argument for execve
+            /*Use environ as the third argument for execve*/
             if (execve(xctbl, tokstr, environ) == -1)
             {
                 perror("Error executing command");
@@ -58,8 +58,8 @@ int executeCommand(char *line) {
 
         } else {
 
-        // This is the parent process
-        waitpid(child_pid, &status, 0); // Wait for the child process to finish.
+        /*This is the parent process*/
+        waitpid(child_pid, &status, 0); /*Wait for the child process to finish*/
 
     }
     return 0;
