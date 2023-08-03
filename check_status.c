@@ -28,7 +28,8 @@ int check_executable_access(const char *file_path)
 	{
 		printf("You have access to execute the file: %s\n", file_path);
 		return 1; // Access granted
-	} else
+	}
+	else
 	{
         printf("You do not have access to execute the file: %s\n", file_path);
         return 0; // Access denied
