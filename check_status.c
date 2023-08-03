@@ -1,4 +1,4 @@
-#include "test.h"
+#include "shell.h"
 
 int check_status(const char *filename)
 {
@@ -20,4 +20,17 @@ int check_status(const char *filename)
                 printf("Last status change time: %ld\n", fileInfo.st_ctime);
         }
         return (0);
+}
+int check_executable_access(const char *file_path)
+{
+    	// Check if the file exists and is executable
+    	if (access(file_path, X_OK) == 0)
+	{
+		printf("You have access to execute the file: %s\n", file_path);
+		return 1; // Access granted
+	} else
+	{
+        printf("You do not have access to execute the file: %s\n", file_path);
+        return 0; // Access denied
+	}
 }
