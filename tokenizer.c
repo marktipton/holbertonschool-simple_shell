@@ -1,17 +1,6 @@
 #include "shell.h"
 #include <stdlib.h>
 #include <string.h>
-
-void *print_tokens(char **token_array)
-{
-        int i = 0;
-
-        while (token_array[i] != NULL)
-        {
-                printf("%s\n", token_array[i]);
-                i++;
-        }
-}
 char **tokenizer(char *line)
 {
         int bufsize = 10;
@@ -24,6 +13,7 @@ char **tokenizer(char *line)
         {
                 perror("malloc");
                 exit(EXIT_FAILURE);
+		return(0);
         }
         token = strtok(line, WHITESPACE);
 

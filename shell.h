@@ -1,5 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
+
 #define DEHORS 0
 #define DEDANS 1
 #define BUF 1000
@@ -23,7 +24,7 @@ extern char **environ;
 
 int check_built_in(char *str);
 char **tokenizer(char *line);
-void *print_tokens(char **token_array);
+int print_tokens(char **token_array);
 int get_path(char *line);
 int check_status(const char *filename);
 int check_executable_access(const char *file_path);

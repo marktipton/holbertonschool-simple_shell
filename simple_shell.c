@@ -1,9 +1,9 @@
 #include "shell.h"
-#include "tokenizer.c"
+/**
+ * #include "tokenizer.c"
 #include "check_built_in.c"
 #include "get_path.c"
-#include "check_status.c"
-
+#include "check_status.c"*/
 int main(int argc, char **argv, char **env)
 {
         char *line = NULL;
@@ -12,7 +12,7 @@ int main(int argc, char **argv, char **env)
         ssize_t nchars_read;
         char **tokstr;
 
-        (void)argc; (void)argv;
+        (void)argc; (void)argv; (void)env;
 
         while (1)
         {
