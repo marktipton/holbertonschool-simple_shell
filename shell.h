@@ -26,6 +26,6 @@ char **tokenizer(char *line);
 void *print_tokens(char **token_array);
 int get_path(char *line);
 int check_status(const char *filename);
-int check_executable_access(const char *file_path);
+int check_access(const char *file_path);
 
 #endif
