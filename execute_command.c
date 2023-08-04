@@ -1,67 +1,51 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
 #include "shell.h"
-int executeCommand(char *line) {
+int executeCommand(char *line) 
+{
+	pid_t child_pid;
+	/*char input[100] = {0};*/
+	int status;
+	char *binstr = "/bin";
+	char *xctbl;
+	char **tokstr;
+	/*int env;*/
+	line[strcspn(line, "\n")] = '\0'; /*Fix the line variable name*/
 
-    pid_t child_pid;
-    /*char input[100] = {0};*/
-    int status;
+	child_pid = fork();
 
-    char *binstr = "/bin/";
-    char *xctbl;
-    char **tokstr;
-    /*int env;*/
+	if (child_pid == 0) /*This is the child process*/
+	{	
+		tokstr = tokenizer(line);
 
-    line[strcspn(line, "\n")] = '\0'; /*Fix the line variable name*/
-
-    child_pid = fork();
-
-    if (child_pid == 0)
-    {
-        /*This is the child process*/
-        tokstr = tokenizer(line); /*You should have the tokenizer function defined or included*/
-
-        /*Check if the command is one of the built-in commands*/
-        if (strcmp(tokstr[0], "ls") == 0)
-        {
-            /*If the command is "ls", execute it using execvp*/
-            if (execvp("/bin/ls", tokstr) == -1)
-            {
-                perror("Error executing ls");
-                exit(EXIT_FAILURE);
-            }
-
-        } else
-
-        {
-            /*If it's not a built-in command, execute the specified command*/
-            xctbl = strcat(binstr, tokstr[0]);
-            /*Use environ as the third argument for execve*/
-            if (execve(xctbl, tokstr, environ) == -1)
-            {
-                perror("Error executing command");
-                exit(EXIT_FAILURE);
-            }
-
-            }
-
-        } else if (child_pid < 0)
-
-        {
-        perror("fork");
-        exit(EXIT_FAILURE);
-
-        } else {
-
-        /*This is the parent process*/
-        waitpid(child_pid, &status, 0); /*Wait for the child process to finish*/
-
-    }
-    return 0;
-
+		/*Check if the command is one of the built-in commands*/
+		if (strcmp(tokstr[0], "ls") == 0)
+		{
+			/*If the command is "ls", execute it using execvp*/
+			if (execvp("/bin/ls", tokstr) == -1)
+			{
+				perror("Error executing ls");
+				exit(EXIT_FAILURE);
+			}
+        	} 
+		else
+		{
+			/*If it's not a built-in command, execute the specified command*/
+			xctbl = strcat(binstr, tokstr[0]);
+			/*Use environ as the third argument for execve*/
+			if (execve(xctbl, tokstr, environ) == -1)
+			{
+				perror("Error executing command");
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else if (child_pid < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else /*This is the parent process*/
+	{
+		waitpid(child_pid, &status, 0); /*Wait for the child process to finish*/
+	}
+	return (0);
 }
