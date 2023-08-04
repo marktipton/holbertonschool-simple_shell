@@ -8,7 +8,7 @@
  * @line: string to break up
  * Return: array of tokens or NULL on failure
  */
-char **tokenizer(char *line)
+char **tokenizer(char *line, char *delim)
 {
         int bufsize = 10;
         char **token_array;
@@ -22,7 +22,7 @@ char **tokenizer(char *line)
                 exit(EXIT_FAILURE);
 		return (NULL);
         }
-        token = strtok(line, WHITESPACE);
+        token = strtok(line, delim);
 
         while (token != NULL)
         {
@@ -32,7 +32,7 @@ char **tokenizer(char *line)
                         perror("strdup");
                         exit(EXIT_FAILURE);
                 }
-                token = strtok(NULL, WHITESPACE);
+                token = strtok(NULL, delim);
                 i++;
         }
 
