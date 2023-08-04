@@ -1,10 +1,8 @@
 #include "shell.h"
 #include <string.h>
 /**
- * printenv -
+ * printenv - prints environment of current process
  *
- *
- * Return:
  */
 void printenv(void)
 {
@@ -16,7 +14,13 @@ void printenv(void)
 		i++;
 	}
 }
-
+/**
+ * check_built_in - checks if the input is env or exit
+ *
+ * @str: input string
+ *
+ * Return: 0 if env is input and 1 if input does not match
+ */
 int check_built_in(char *str)
 {
 	if (str)

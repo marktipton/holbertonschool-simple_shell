@@ -18,6 +18,7 @@ char **tokenizer(char *line, char *delim)
 	token_array = malloc(bufsize * sizeof(char *));
 	if (token_array == NULL)
 	{
+		free(token_array);
 		perror("malloc");
 		exit(EXIT_FAILURE);
 		return (NULL);
