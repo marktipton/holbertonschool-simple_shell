@@ -23,7 +23,7 @@ int get_path(char *line)
 	}
 	if (path_point == NULL)
 	{
-		printf("PATH variable not found.\n");
+		/*printf("PATH variable not found.\n");*/
 		return (1);
 	}
 	
@@ -31,7 +31,7 @@ int get_path(char *line)
 	
 	while (token != NULL)     /*Loop to get the rest of the tokens*/
 	{
-		printf("%s\n", token);
+		/*printf("%s\n", token);*/
 		/*Use NULL as the first argument to get the next token*/
 		token = strtok(NULL, DELIMITER);
 	}
