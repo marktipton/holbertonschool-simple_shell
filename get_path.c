@@ -32,9 +32,11 @@ int get_path(char *line)
 	
 	while (path_array[i] != NULL)
 	{
-		printf("%s\n", path_array[i]);
 		if (strcmp(line, path_array[i]) == 0)
+		{
+			printf("%s\n", path_array[i]);
 			return (0);
+		}
 		i++;
 	}
 	return (1);

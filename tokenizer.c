@@ -13,8 +13,10 @@ char **tokenizer(char *line, char *delim)
 	int bufsize = 10;
 	char **token_array;
 	char *token;
+	char *dupline;
 	int i = 0;
 
+	dupline = strdup(line);
 	token_array = malloc(bufsize * sizeof(char *));
 	if (token_array == NULL)
 	{
@@ -23,7 +25,7 @@ char **tokenizer(char *line, char *delim)
 		exit(EXIT_FAILURE);
 		return (NULL);
 	}
-	token = strtok(line, delim);
+	token = strtok(dupline, delim);
 
 	while (token != NULL)
 	{
