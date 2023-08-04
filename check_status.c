@@ -1,9 +1,10 @@
 #include "shell.h"
 /**
+ * check_status - checks if a file exists
  *
+ * @filename: string name of file to check
  *
- *
- * Return:
+ * Return: 0 if file exists and -1 if no file found
  */
 int check_status(const char *filename)
 {
@@ -15,29 +16,26 @@ int check_status(const char *filename)
 		/*perror("Error in stat");*/
 		return (-1);
 	}
-	/*else
-	{
-		printf("File: %s\n", filename);
-		printf("File permissions: %o\n", fileInfo.st_mode);
-		printf("Last access time: %ld\n", fileInfo.st_atime);
-		printf("Last modification time: %ld\n", fileInfo.st_mtime);
-		printf("Last status change time: %ld\n", fileInfo.st_ctime);
-		printf("File: %s\n", filename);
-	}*/
+	check_access(filename);
 	return (0);
 }
+/**
+ * check_access - checks if user has permission to execute a file
+ *
+ * file_path: full path name of executable file
+ *
+ * Return: 0 if user has access and -1 if user does not have access
+ */
 int check_access(const char *file_path)
 {
-	/*Check if the file exists and is executable*/
 	if (access(file_path, X_OK) == 0)
 	{
-		/*printf("You have access to execute the file: %s\n", file_path);*/
-		return (1); /*Access granted*/
+		return (0);
 	}
 	else
 	{
 		perror("access");
 		/*printf("You do not have access to execute the file: %s\n", file_path);*/
-		return (0);
+		return (-1);
 	}
 }
