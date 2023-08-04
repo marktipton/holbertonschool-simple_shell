@@ -1,15 +1,19 @@
 #include "shell.h"
 #include <stdlib.h>
 #include <string.h>
-
+/**
+ *
+ *
+ * Return:
+ */
 int print_tokens(char **token_array)
 {
-        int i = 0;
+	int i = 0;
 
-        while (token_array[i] != NULL)
-        {
-                printf("%s\n", token_array[i]);
-                i++;
-        }
+	while (token_array[i] != NULL)
+	{
+		printf("%s\n", token_array[i]);
+		i++;
+	}
 	return(i);
 }
