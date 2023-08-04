@@ -31,7 +31,7 @@ int execute_command(char *line)
 				perror("Error executing ls");
 				exit(EXIT_FAILURE);
 			}
-        	} 
+		}
 		else
 		{
 			/*If it's not a built-in command, execute the specified command*/
