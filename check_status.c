@@ -6,17 +6,19 @@
  *
  * Return: 0 if file exists and -1 if no file found
  */
-int check_status(const char *filename)
+int check_status(char *filename)
 {
 	struct stat fileInfo;
 
 	if (stat(filename, &fileInfo) != 0)
 	{
-		/*printf("file does not exist");*/
-		/*perror("Error in stat");*/
+		fprintf(stderr, "hsh: %s: command not found\n", filename);
 		return (-1);
 	}
-	check_access(filename);
+	if (check_access(filename) == 0)
+	{
+		execute_command(filename);
+	}
 	return (0);
 }
 /**
@@ -26,7 +28,7 @@ int check_status(const char *filename)
  *
  * Return: 0 if user has access and -1 if user does not have access
  */
-int check_access(const char *file_path)
+int check_access(char *file_path)
 {
 	if (access(file_path, X_OK) == 0)
 	{
@@ -35,7 +37,7 @@ int check_access(const char *file_path)
 	else
 	{
 		perror("access");
-		/*printf("You do not have access to execute the file: %s\n", file_path);*/
+		printf("You do not have access to execute the file: %s\n", file_path);
 		return (-1);
 	}
 }

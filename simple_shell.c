@@ -35,8 +35,6 @@ int main(int argc, char **argv, char **env)
 		status = check_status(tokstr[0]);
 		if (status != 0)
 			get_path(line);
-		else 
-			execute_command(tokstr[0]);
 		free(tokstr);
 	}
 	return (0);

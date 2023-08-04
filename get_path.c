@@ -24,7 +24,6 @@ int get_path(char *line)
 	}
 	if (path_point == NULL)
 	{
-		/*printf("PATH variable not found.\n");*/
 		return (-1);
 	}
 	
