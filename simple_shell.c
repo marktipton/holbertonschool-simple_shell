@@ -37,7 +37,6 @@ int main(int argc, char **argv, char **env)
 			printf("\n");
 			return (0);
 		}
-		printf("%s", line);
 		tokstr = tokenizer(line, WHITESPACE);
 		check_built_in(tokstr[0]);
 		check_status(tokstr[0]);
