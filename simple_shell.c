@@ -26,9 +26,9 @@ int main(int argc, char **argv, char **env)
 
 		if (nchars_read == -1)
 		{
-			perror("getline");
+			/*perror("getline");*/
 			free(line);
-			exit(1);
+			exit(0);
 		}
 
 		if (nchars_read == 1)
