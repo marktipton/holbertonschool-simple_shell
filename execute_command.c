@@ -21,7 +21,7 @@ int execute_command(char *line)
 
 	if (child_pid == 0) /*This is the child process*/
 	{	
-		tokstr = tokenizer(line);
+		tokstr = tokenizer(line, WHITESPACE);
 
 		if (strcmp(tokstr[0], "ls") == 0) /*Check if command is builtin*/
 		{

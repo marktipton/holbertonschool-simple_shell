@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env)
 			return (0);
 		}
 		printf("%s", line);
-		tokstr = tokenizer(line);
+		tokstr = tokenizer(line, WHITESPACE);
 		check_built_in(tokstr[0]);
 		check_status(tokstr[0]);
 		get_path(line);
