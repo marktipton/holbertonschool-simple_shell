@@ -19,7 +19,12 @@ int execute_command(char *line)
 
 	child_pid = fork();
 
-	if (child_pid == 0) /*This is the child process*/
+	if (child_pid < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (child_pid == 0) /*This is the child process*/
 	{	
 		tokstr = tokenizer(line, WHITESPACE);
 
@@ -34,20 +39,15 @@ int execute_command(char *line)
 		else
 		{
 			exec_file_name = strcat(binstr, tokstr[0]);
-			if (execve(exec_filename, tokstr, environ) == -1)
+			if (execve(exec_file_name, tokstr, environ) == -1)
 			{
 				exit(EXIT_FAILURE);
 			}
 		}
 	}
-	else if (child_pid < 0)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
 	else /*This is the parent process*/
 	{
-		waitpid(child_pid, &status, 0); /*Wait for the child process to finish*/
+		wait(&status); /*Wait for the child process to finish*/
 	}
 	return (0);
 }

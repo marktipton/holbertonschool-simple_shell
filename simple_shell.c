@@ -13,6 +13,7 @@ int main(int argc, char **argv, char **env)
 	int fd = STDIN_FILENO;
 	ssize_t nchars_read;
 	char **tokstr;
+	int status;
 
 	(void)argc;
 	(void)argv;
@@ -23,7 +24,7 @@ int main(int argc, char **argv, char **env)
 		if (isatty(fd) == 1)
 			printf("$ ");
 		nchars_read = getline(&line, &len, stdin);
-		if (nchars_read == -1)    /*If EOF from ctrl+D*/
+		if (nchars_read == -1)    /*If EOF from Ctrl+D input*/
 		{
 			printf("\n");
 			free(line);
@@ -31,8 +32,11 @@ int main(int argc, char **argv, char **env)
 		}
 		tokstr = tokenizer(line, WHITESPACE);
 		check_built_in(tokstr[0]);
-		check_status(tokstr[0]);
-		get_path(line);
+		status = check_status(tokstr[0]);
+		if (status != 0)
+			get_path(line);
+		else 
+			execute_command(tokstr[0]);
 		free(tokstr);
 	}
 	return (0);
