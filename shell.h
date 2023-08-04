@@ -26,8 +26,8 @@ int check_built_in(char *str);
 char **tokenizer(char *line, char *delim);
 int print_tokens(char **token_array);
 int get_path(char *line);
-int check_status(const char *filename);
-int check_access(const char *file_path);
+int check_status(char *filename);
+int check_access(char *file_path);
 int execute_command(char *line);
 
 #endif
