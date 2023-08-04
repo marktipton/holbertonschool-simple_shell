@@ -28,5 +28,6 @@ int print_tokens(char **token_array);
 int get_path(char *line);
 int check_status(const char *filename);
 int check_access(const char *file_path);
+int execute_command(char *line);
 
 #endif

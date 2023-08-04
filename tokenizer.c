@@ -1,6 +1,13 @@
 #include "shell.h"
 #include <stdlib.h>
 #include <string.h>
+/**
+ *
+ * tokenizer - breaks a string up into an array of tokens
+ *
+ * @line: string to break up
+ * Return: array of tokens or NULL on failure
+ */
 char **tokenizer(char *line)
 {
         int bufsize = 10;
@@ -13,7 +20,7 @@ char **tokenizer(char *line)
         {
                 perror("malloc");
                 exit(EXIT_FAILURE);
-		return(0);
+		return (NULL);
         }
         token = strtok(line, WHITESPACE);
 

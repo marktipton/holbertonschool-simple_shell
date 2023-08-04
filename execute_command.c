@@ -1,5 +1,12 @@
 #include "shell.h"
-int executeCommand(char *line) 
+/**
+ * execute_command - forks a process and executes a command
+ *
+ * @line: input string
+ *
+ * Return: 0 on success
+ */
+int execute_command(char *line) 
 {
 	pid_t child_pid;
 	/*char input[100] = {0};*/
@@ -7,7 +14,7 @@ int executeCommand(char *line)
 	char *binstr = "/bin";
 	char *xctbl;
 	char **tokstr;
-	/*int env;*/
+
 	line[strcspn(line, "\n")] = '\0'; /*Fix the line variable name*/
 
 	child_pid = fork();
@@ -16,8 +23,7 @@ int executeCommand(char *line)
 	{	
 		tokstr = tokenizer(line);
 
-		/*Check if the command is one of the built-in commands*/
-		if (strcmp(tokstr[0], "ls") == 0)
+		if (strcmp(tokstr[0], "ls") == 0) /*Check if command is builtin*/
 		{
 			/*If the command is "ls", execute it using execvp*/
 			if (execvp("/bin/ls", tokstr) == -1)
