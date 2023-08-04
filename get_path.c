@@ -4,13 +4,14 @@
  *
  * line: filename to search PATH for
  *
- * Return: 0 if PATH found and 1 if path not found
+ * Return: 0 if PATH found and -1 if path not found
  */
 int get_path(char *line)
 {
 	char *path_point = NULL;
-	char *token = line;
+	char **path_array;
 	char **env = environ;
+	int i = 0;
 
 	while (*env != NULL)     /*Find the "PATH" variable in the environment*/
 	{
@@ -24,16 +25,17 @@ int get_path(char *line)
 	if (path_point == NULL)
 	{
 		/*printf("PATH variable not found.\n");*/
-		return (1);
+		return (-1);
 	}
 	
-	token = strtok(path_point, DELIMITER);
+	path_array = tokenizer(path_point, DELIMITER);
 	
-	while (token != NULL)     /*Loop to get the rest of the tokens*/
+	while (path_array[i] != NULL)
 	{
-		/*printf("%s\n", token);*/
-		/*Use NULL as the first argument to get the next token*/
-		token = strtok(NULL, DELIMITER);
+		printf("%s\n", path_array[i]);
+		if (strcmp(line, path_array[i]) == 0)
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
 }

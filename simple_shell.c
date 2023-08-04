@@ -1,9 +1,9 @@
 #include "shell.h"
 /**
- * main - func to loop through builtins
- * @argc: this isn't really used and we'll take it out
- * @argv: this isn't really used and we'll take it out
- * @env: this isn't really used and we'll take it out
+ * main - prompts user for input
+ * @argc: number of arguments passed in
+ * @argv: array of argument strings
+ * @env: array of environment strings
  * Return: 0 for success
  */
 int main(int argc, char **argv, char **env)
@@ -23,19 +23,11 @@ int main(int argc, char **argv, char **env)
 		if (isatty(fd) == 1)
 			printf("$ ");
 		nchars_read = getline(&line, &len, stdin);
-
-		if (nchars_read == -1)
+		if (nchars_read == -1)    /*If EOF from ctrl+D*/
 		{
-			/*perror("getline");*/
+			printf("\n");
 			free(line);
 			exit(0);
-		}
-
-		if (nchars_read == 1)
-		{
-			free(line);
-			printf("\n");
-			return (0);
 		}
 		tokstr = tokenizer(line, WHITESPACE);
 		check_built_in(tokstr[0]);

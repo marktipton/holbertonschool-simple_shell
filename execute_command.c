@@ -12,7 +12,7 @@ int execute_command(char *line)
 	/*char input[100] = {0};*/
 	int status;
 	char *binstr = "/bin";
-	char *xctbl;
+	char *exec_file_name;
 	char **tokstr;
 
 	line[strcspn(line, "\n")] = '\0'; /*Fix the line variable name*/
@@ -25,7 +25,6 @@ int execute_command(char *line)
 
 		if (strcmp(tokstr[0], "ls") == 0) /*Check if command is builtin*/
 		{
-			/*If the command is "ls", execute it using execvp*/
 			if (execvp("/bin/ls", tokstr) == -1)
 			{
 				perror("Error executing ls");
@@ -34,12 +33,9 @@ int execute_command(char *line)
 		}
 		else
 		{
-			/*If it's not a built-in command, execute the specified command*/
-			xctbl = strcat(binstr, tokstr[0]);
-			/*Use environ as the third argument for execve*/
-			if (execve(xctbl, tokstr, environ) == -1)
+			exec_file_name = strcat(binstr, tokstr[0]);
+			if (execve(exec_filename, tokstr, environ) == -1)
 			{
-				perror("Error executing command");
 				exit(EXIT_FAILURE);
 			}
 		}
