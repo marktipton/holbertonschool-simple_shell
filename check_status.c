@@ -9,7 +9,7 @@
 int check_status(char *filename)
 {
 	struct stat fileInfo;
-
+	
 	if (stat(filename, &fileInfo) != 0)
 	{
 		fprintf(stderr, "hsh: %s: command not found\n", filename);
