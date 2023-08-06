@@ -6,7 +6,7 @@
  *
  * Return: 0 if PATH found and -1 if path not found
  */
-int get_path(char *line)
+int check_path(char *line)
 {
 	char *path_point = NULL;
 	char **path_array;
@@ -25,15 +25,14 @@ int get_path(char *line)
 	if (path_point == NULL)
 	{
 		return (-1);
-	}
-	
+	}	
 	path_array = tokenizer(path_point, DELIMITER);
 	
 	while (path_array[i] != NULL)
 	{
 		if (strcmp(line, path_array[i]) == 0)
 		{
-			printf("%s\n", path_array[i]);
+			path_append(path_array[i], line);
 			return (0);
 		}
 		i++;

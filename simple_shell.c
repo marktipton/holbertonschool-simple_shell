@@ -24,18 +24,21 @@ int main(int argc, char **argv, char **env)
 		if (isatty(fd) == 1)
 			printf("$ ");
 		nchars_read = getline(&line, &len, stdin);
-		if (nchars_read == -1)    /*If EOF from Ctrl+D input*/
+		if (nchars_read == -1)/* if EOF from Ctrl+D input*/
 		{
 			printf("\n");
 			free(line);
 			exit(0);
 		}
-		tokstr = tokenizer(line, WHITESPACE);
-		check_built_in(tokstr[0]);
-		status = check_status(tokstr[0]);
-		if (status != 0)
-			get_path(line);
-		free(tokstr);
+			tokstr = tokenizer(line, WHITESPACE);
+			check_built_in(tokstr[0]);
+
+			if ((check_built_in(tokstr[0]) != 0) || nchars_read != 1)
+				status = check_status(tokstr[0]);
+			if (status != 0)
+				check_path(line);
+			free(tokstr);
+
 	}
 	return (0);
 }
