@@ -30,5 +30,6 @@ int check_status(char *filename);
 int check_access(char *file_path);
 void execute_command(char *line);
 char *path_append(char *tokenized_path, char *command);
+void free_tokens(char **tokens);
 
 #endif
