@@ -25,10 +25,10 @@ extern char **environ;
 int check_built_in(char *str);
 char **tokenizer(char *line, char *delim);
 int print_tokens(char **token_array);
-int check_path(char *line);
+char *check_path(char *line);
 int check_status(char *filename);
 int check_access(char *file_path);
-int execute_command(char *line);
-void path_append(char *tokenized_path, char *command);
+void execute_command(char *line);
+char *path_append(char *tokenized_path, char *command);
 
 #endif

@@ -4,13 +4,14 @@
  *
  * line: filename to search PATH for
  *
- * Return: 0 if PATH found and -1 if path not found
+ * Return: full path if PATH found and NULL if path not found
  */
-int check_path(char *line)
+char *check_path(char *line)
 {
 	char *path_point = NULL;
 	char **env = environ;
 	char **path_array;
+	char *full_path;
 
 	while (*env != NULL)     /*Find the "PATH" variable in the environment*/
 	{
@@ -23,10 +24,10 @@ int check_path(char *line)
 	}
 	if (path_point == NULL)
 	{
-		return (-1);
+		return (NULL);
 	}
 	path_array = tokenizer(path_point, DELIMITER);
-	path_append(path_array[5], line);
+	full_path = path_append(path_array[5], line);
 
-	return (0);
+	return (full_path);
 }
