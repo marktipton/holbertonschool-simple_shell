@@ -4,9 +4,8 @@
  *
  * @line: input string
  *
- * Return: 0 on success
  */
-int execute_command(char *line) 
+void execute_command(char *line) 
 {
 	pid_t child_pid;
 	int status;
@@ -34,5 +33,4 @@ int execute_command(char *line)
 	{
 		wait(&status);
 	}
-	return (0);
 }

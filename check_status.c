@@ -9,17 +9,27 @@
 int check_status(char *filename)
 {
 	struct stat fileInfo;
-	
-	if (stat(filename, &fileInfo) != 0)
+	char *full_path;
+
+	full_path = check_path(filename);
+	if (stat(filename, &fileInfo) == 0)
+	{
+		if (check_access(filename) == 0)
+			execute_command(filename);
+		return (0);
+	}	
+	else if (stat(full_path, &fileInfo) == 0)
+	{
+		if (check_access(full_path) == 0)
+			execute_command(full_path);
+		return (0);
+	}
+	else
 	{
 		fprintf(stderr, "hsh: %s: command not found\n", filename);
 		return (-1);
 	}
-	if (check_access(filename) == 0)
-	{
-		execute_command(filename);
-	}
-	return (0);
+
 }
 /**
  * check_access - checks if user has permission to execute a file
