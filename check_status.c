@@ -10,32 +10,37 @@ int check_status(char *userinput)
 {
 	struct stat fileInfo;
 	char *full_path;
+	int result = -1;
 
 	full_path = check_path(userinput);
-	if (stat(userinput, &fileInfo) == 0)
+	if (full_path != NULL && userinput != NULL)
 	{
-		if (check_access(userinput) == 0)
+		if (stat(userinput, &fileInfo) == 0)
 		{
-			execute_command(userinput);
-			free(userinput);
-		}
-		return (0);
-	}	
-	else if (stat(full_path, &fileInfo) == 0)
-	{
-		if (check_access(full_path) == 0)
+			if (check_access(userinput) == 0)
+			{
+				execute_command(userinput);
+				/*free(userinput);*/
+				result = 0;
+			}
+		}	
+		else if (stat(full_path, &fileInfo) == 0)
 		{
-			execute_command(full_path);
-			free(full_path);
+			if (check_access(full_path) == 0)
+			{
+				execute_command(full_path);
+				/*free(full_path);*/
+				result = 0;
+			}
 		}
-		return (0);
+		else
+		{
+			fprintf(stderr, "hsh: %s: command not found\n", userinput);
+			result = -1;
+		}
+		free(full_path);
 	}
-	else
-	{
-		fprintf(stderr, "hsh: %s: command not found\n", userinput);
-		return (-1);
-	}
-
+	return (result);
 }
 /**
  * check_access - checks if user has permission to execute a file
@@ -52,8 +57,8 @@ int check_access(char *file_path)
 	}
 	else
 	{
-		perror("access");
-		printf("You do not have access to execute the file: %s\n", file_path);
+		/*perror("access");*/
+		/*printf("You do not have access to execute the file: %s\n", file_path);*/
 		return (-1);
 	}
 }

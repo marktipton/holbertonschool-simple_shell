@@ -8,13 +8,11 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *line = NULL;
+	char *line = NULL, *full_path;
 	size_t len = 0;
-	int fd = STDIN_FILENO;
+	int fd = STDIN_FILENO, status = 0;
 	ssize_t nchars_read;
 	char **tokstr;
-	int status = 0;
-	char *full_path;
 
 	(void)argc, (void)argv, (void)env;
 
@@ -30,9 +28,7 @@ int main(int argc, char **argv, char **env)
 			exit(0);
 		}
 		if (nchars_read == 1)
-		{
 			continue;
-		}
 		tokstr = tokenizer(line, WHITESPACE);
 		if ((check_built_in(tokstr[0]) == 0))
 		{
@@ -47,9 +43,7 @@ int main(int argc, char **argv, char **env)
 			line = full_path;
 		}
 		else
-		{
 			free_tokens(tokstr);
-		}
 	}
 	free(line);
 	return (0);
