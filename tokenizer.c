@@ -3,8 +3,8 @@
 #include <string.h>
 /**
  * tokenizer - breaks a string up into an array of tokens
- *
  * @line: string to break up
+ * @delim: characters to look for
  * Return: array of tokens or NULL on failure
  */
 char **tokenizer(char *line, char *delim)

@@ -10,7 +10,7 @@ void execute_command(char *line)
 	pid_t child_pid;
 	int status;
 	char **tokstr;
-	
+
 	tokstr = tokenizer(line, WHITESPACE);
 	child_pid = fork();
 	if (child_pid < 0)
@@ -22,7 +22,7 @@ void execute_command(char *line)
 	{
 
 		execve(line, tokstr, environ);
-			
+
 		perror("execve");
 		exit(EXIT_FAILURE);
 	}

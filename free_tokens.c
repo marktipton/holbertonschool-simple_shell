@@ -1,8 +1,6 @@
 #include "shell.h"
 /**
- *
  * free_tokens - free memory allocated for tokens and the token array
- *
  * @tokens: pointer to the array of tokens
  */
 void free_tokens(char **tokens)
