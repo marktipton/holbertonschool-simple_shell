@@ -23,7 +23,6 @@ int main(int argc, char **argv, char **env)
 		nchars_read = getline(&line, &len, stdin);
 		if (nchars_read == -1)/* if EOF from Ctrl+D input*/
 		{
-			printf("\n");
 			free(line);
 			exit(0);
 		}
