@@ -13,21 +13,19 @@ int check_status(char *userinput)
 	full_path = check_path(userinput);
 	if (full_path != NULL && userinput != NULL)
 	{
-		if (stat(userinput, &fileInfo) == 0)
+		if (stat(userinput, &fileInfo) == 0) /*check if user put in name of file*/
 		{
 			if (check_access(userinput) == 0)
 			{
 				execute_command(userinput);
-				/*free(userinput);*/
 				result = 0;
 			}
 		}
-		else if (stat(full_path, &fileInfo) == 0)
+		else if (stat(full_path, &fileInfo) == 0) /*check if user put in existing cmd*/
 		{
 			if (check_access(full_path) == 0)
 			{
 				execute_command(full_path);
-				/*free(full_path);*/
 				result = 0;
 			}
 		}
