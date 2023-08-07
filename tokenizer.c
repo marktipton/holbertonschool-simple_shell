@@ -11,17 +11,14 @@ char **tokenizer(char *line, char *delim)
 {
 	int bufsize = 10;
 	char **token_array;
-	char *token;
-	char *dupline;
-	int i = 0;
+	char *token, *dupline;
+	int i = 0, j = 0;
 
 	dupline = strdup(line);
 	token_array = malloc(bufsize * sizeof(char *));
 	if (token_array == NULL)
 	{
-		free(token_array);
 		perror("malloc");
-		exit(EXIT_FAILURE);
 		return (NULL);
 	}
 	token = strtok(dupline, delim);
@@ -32,12 +29,17 @@ char **tokenizer(char *line, char *delim)
 		if (token_array[i] == NULL)
 		{
 			perror("strdup");
-			exit(EXIT_FAILURE);
+			for (; j < i; j++)
+			{
+				free(token_array[j]);
+			}
+			free(token_array);
+			free(dupline);
+			return (NULL);
 		}
 		token = strtok(NULL, delim);
 		i++;
 	}
-
 	token_array[i] = NULL;
 	free(dupline);
 	return (token_array);

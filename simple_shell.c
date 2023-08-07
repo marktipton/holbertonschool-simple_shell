@@ -22,12 +22,6 @@ int main(int argc, char **argv, char **env)
 	{
 		if (isatty(fd) == 1)
 			printf("$ ");
-		line = malloc(100 * sizeof(char));
-		if (line == NULL)
-		{
-			printf("Error allocating memory for line\n");
-			return (1);
-		}
 		nchars_read = getline(&line, &len, stdin);
 		if (nchars_read == -1)/* if EOF from Ctrl+D input*/
 		{
@@ -37,25 +31,25 @@ int main(int argc, char **argv, char **env)
 		}
 		if (nchars_read == 1)
 		{
-			free(line);
 			continue;
 		}
 		tokstr = tokenizer(line, WHITESPACE);
 		if ((check_built_in(tokstr[0]) == 0))
 		{
-			free(line);
-			free(tokstr);
+			free_tokens(tokstr);
 			continue;
 		}
 		status = check_status(tokstr[0]);
 		if (status != 0)
 		{
 			full_path = check_path(tokstr[0]);
-			free(line);
-			free(tokstr);
+			free_tokens(tokstr);
 			line = full_path;
 		}
-		free(tokstr);
+		else
+		{
+			free_tokens(tokstr);
+		}
 	}
 	free(line);
 	return (0);
