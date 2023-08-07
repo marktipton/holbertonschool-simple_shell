@@ -12,6 +12,7 @@ char *check_path(char *line)
 	char **env = environ;
 	char **path_array;
 	char *full_path;
+	char *temp_path;
 
 	while (*env != NULL)     /*Find the "PATH" variable in the environment*/
 	{
@@ -27,7 +28,14 @@ char *check_path(char *line)
 		return (NULL);
 	}
 	path_array = tokenizer(path_point, DELIMITER);
-	full_path = path_append(path_array[5], line);
-
+	temp_path = path_append(path_array[5], line);
+	full_path = malloc(strlen(temp_path) + 1);
+	if (full_path == NULL)
+	{
+		free(path_array);
+		return (NULL);
+	}
+	strcpy(full_path, temp_path);
+	free(temp_path);
 	return (full_path);
 }
