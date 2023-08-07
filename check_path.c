@@ -9,9 +9,8 @@
 int check_path(char *line)
 {
 	char *path_point = NULL;
-	char **path_array;
 	char **env = environ;
-	int i = 0;
+	char **path_array;
 
 	while (*env != NULL)     /*Find the "PATH" variable in the environment*/
 	{
@@ -25,17 +24,9 @@ int check_path(char *line)
 	if (path_point == NULL)
 	{
 		return (-1);
-	}	
-	path_array = tokenizer(path_point, DELIMITER);
-	
-	while (path_array[i] != NULL)
-	{
-		if (strcmp(line, path_array[i]) == 0)
-		{
-			path_append(path_array[i], line);
-			return (0);
-		}
-		i++;
 	}
-	return (1);
+	path_array = tokenizer(path_point, DELIMITER);
+	path_append(path_array[5], line);
+
+	return (0);
 }

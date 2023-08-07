@@ -30,15 +30,14 @@ int main(int argc, char **argv, char **env)
 			free(line);
 			exit(0);
 		}
-			tokstr = tokenizer(line, WHITESPACE);
-			check_built_in(tokstr[0]);
+		tokstr = tokenizer(line, WHITESPACE);
+		check_built_in(tokstr[0]);
 
-			if ((check_built_in(tokstr[0]) != 0) || nchars_read != 1)
-				status = check_status(tokstr[0]);
-			if (status != 0)
-				check_path(line);
-			free(tokstr);
-
+		if ((check_built_in(tokstr[0]) != 0) || nchars_read != 1)
+			status = check_status(tokstr[0]);
+		if (status != 0)
+			check_path(tokstr[0]);
+		free(tokstr);
 	}
 	return (0);
 }
