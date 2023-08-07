@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 /**
- *
  * tokenizer - breaks a string up into an array of tokens
  *
  * @line: string to break up
@@ -40,5 +39,6 @@ char **tokenizer(char *line, char *delim)
 	}
 
 	token_array[i] = NULL;
+	free(dupline);
 	return (token_array);
 }
