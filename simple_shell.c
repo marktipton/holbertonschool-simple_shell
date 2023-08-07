@@ -8,9 +8,9 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *line = NULL, *full_path;
+	char *line = NULL;
 	size_t len = 0;
-	int fd = STDIN_FILENO, status = 0;
+	int fd = STDIN_FILENO;
 	ssize_t nchars_read;
 	char **tokstr;
 
@@ -34,15 +34,8 @@ int main(int argc, char **argv, char **env)
 			free_tokens(tokstr);
 			continue;
 		}
-		status = check_status(tokstr[0]);
-		if (status != 0)
-		{
-			full_path = check_path(tokstr[0]);
-			free_tokens(tokstr);
-			line = full_path;
-		}
-		else
-			free_tokens(tokstr);
+		check_status(tokstr[0]);
+		free_tokens(tokstr);
 	}
 	free(line);
 	return (0);

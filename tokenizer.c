@@ -37,7 +37,7 @@ char **tokenizer(char *line, char *delim)
 			free(dupline);
 			return (NULL);
 		}
-		token = strtok(NULL, delim);
+		token = strtok(NULL, delim); /*Retrieve next token*/
 		i++;
 	}
 	token_array[i] = NULL;

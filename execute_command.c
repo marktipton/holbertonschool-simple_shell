@@ -23,7 +23,7 @@ void execute_command(char *line)
 
 		execve(line, tokstr, environ);
 
-		perror("execve");
+		perror("execve"); /*if execve failed*/
 		exit(EXIT_FAILURE);
 	}
 	else /*This is the parent process*/

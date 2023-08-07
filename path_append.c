@@ -14,7 +14,7 @@ char *path_append(char *tokenized_path, char *command)
 
 	if (tokenized_path == NULL || command == NULL)
 		return (NULL);
-
+		/*allocate memory to make room for '/' and '\0'*/
 	combined_path = (char *)malloc((path_len + command_len + 2) * sizeof(char));
 	if (combined_path == NULL)
 		return (NULL);
