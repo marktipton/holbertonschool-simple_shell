@@ -8,27 +8,21 @@
  */
 char *path_append(char *tokenized_path, char *command)
 {
-	char *var1;
-	char *var2;
-
-	var1 = malloc(strlen(tokenized_path) + 2);
-	if (var1 == NULL)
+	size_t path_len = strlen(tokenized_path);
+	size_t command_len = strlen(command);
+	char *combined_path;
+	
+	if (tokenized_path == NULL || command == NULL)
 		return (NULL);
-			
-	strcpy(var1, tokenized_path);
-	strcat(var1, "/");
 
-	var2 = malloc(strlen(var1) + strlen(command) + 1);
-	if (var2 == NULL)
-	{
-		free(var1);
+	combined_path = (char *)malloc((path_len + command_len + 2) * sizeof(char));
+	if (combined_path == NULL)
 		return (NULL);
-	}
-	strcpy(var2, var1);
-	strcat(var2, command);
+	strcpy(combined_path, tokenized_path);
+	if (combined_path[path_len - 1] != '/')
+		strcat(combined_path, "/");
 
-	free(var1);
-	var1 = NULL;
+	strcat(combined_path, command);
 
-	return (var2);
+	return (combined_path);
 }

@@ -11,6 +11,7 @@ void execute_command(char *line)
 	int status;
 	char **tokstr;
 	
+	tokstr = tokenizer(line, WHITESPACE);
 	child_pid = fork();
 	if (child_pid < 0)
 	{
@@ -19,16 +20,18 @@ void execute_command(char *line)
 	}
 	else if (child_pid == 0) /*This is the child process*/
 	{
-		tokstr = tokenizer(line, WHITESPACE);
-		status = execve(line, tokstr, NULL);
-		if (status == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
+
+		execve(line, tokstr, environ);
+			
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
 	else /*This is the parent process*/
 	{
-		wait(&status);
+		if (waitpid(child_pid, &status, 0) == -1)
+		{
+			perror("waitpid");
+		}
+		free_tokens(tokstr);
 	}
 }
