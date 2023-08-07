@@ -1,9 +1,7 @@
 #include "shell.h"
 /**
  * check_status - checks if a file exists
- *
  * @userinput: string name of file to check
- *
  * Return: 0 if file exists and -1 if no file found
  */
 int check_status(char *userinput)
@@ -23,7 +21,7 @@ int check_status(char *userinput)
 				/*free(userinput);*/
 				result = 0;
 			}
-		}	
+		}
 		else if (stat(full_path, &fileInfo) == 0)
 		{
 			if (check_access(full_path) == 0)
@@ -44,9 +42,7 @@ int check_status(char *userinput)
 }
 /**
  * check_access - checks if user has permission to execute a file
- *
- * file_path: full path name of executable file
- *
+ * @file_path: full path name of executable file
  * Return: 0 if user has access and -1 if user does not have access
  */
 int check_access(char *file_path)
