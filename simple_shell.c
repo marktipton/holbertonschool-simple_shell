@@ -13,11 +13,9 @@ int main(int argc, char **argv, char **env)
 	int fd = STDIN_FILENO;
 	ssize_t nchars_read;
 	char **tokstr;
-	int status;
+	int status = 0;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
+	(void)argc, (void)argv, (void)env;
 
 	while (1)
 	{
@@ -30,11 +28,14 @@ int main(int argc, char **argv, char **env)
 			free(line);
 			exit(0);
 		}
-		tokstr = tokenizer(line, WHITESPACE);
-		check_built_in(tokstr[0]);
+		if (nchars_read == 1)
+			continue;
 
-		if ((check_built_in(tokstr[0]) != 0) || nchars_read != 1)
-			status = check_status(tokstr[0]);
+		tokstr = tokenizer(line, WHITESPACE);
+		
+		if ((check_built_in(tokstr[0]) == 0))
+			continue;
+		status = check_status(tokstr[0]);
 		if (status != 0)
 			check_path(tokstr[0]);
 		free(tokstr);
