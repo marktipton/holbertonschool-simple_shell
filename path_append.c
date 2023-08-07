@@ -11,7 +11,7 @@ char *path_append(char *tokenized_path, char *command)
 	size_t path_len = strlen(tokenized_path);
 	size_t command_len = strlen(command);
 	char *combined_path;
-	
+
 	if (tokenized_path == NULL || command == NULL)
 		return (NULL);
 

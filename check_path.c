@@ -1,9 +1,7 @@
 #include "shell.h"
 /**
- * get_path - searches for the PATH variable in the env 
- *
- * line: filename to search PATH for
- *
+ * check_path - searches for the PATH variable in the env
+ * @line: filename to search PATH for
  * Return: full path if PATH found and NULL if path not found
  */
 char *check_path(char *line)
