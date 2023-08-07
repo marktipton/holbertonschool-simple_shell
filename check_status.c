@@ -2,22 +2,22 @@
 /**
  * check_status - checks if a file exists
  *
- * @filename: string name of file to check
+ * @userinput: string name of file to check
  *
  * Return: 0 if file exists and -1 if no file found
  */
-int check_status(char *filename)
+int check_status(char *userinput)
 {
 	struct stat fileInfo;
 	char *full_path;
 
-	full_path = check_path(filename);
-	if (stat(filename, &fileInfo) == 0)
+	full_path = check_path(userinput);
+	if (stat(userinput, &fileInfo) == 0)
 	{
-		if (check_access(filename) == 0)
+		if (check_access(userinput) == 0)
 		{
-			execute_command(filename);
-			free(filename);
+			execute_command(userinput);
+			free(userinput);
 		}
 		return (0);
 	}	
@@ -32,7 +32,7 @@ int check_status(char *filename)
 	}
 	else
 	{
-		fprintf(stderr, "hsh: %s: command not found\n", filename);
+		fprintf(stderr, "hsh: %s: command not found\n", userinput);
 		return (-1);
 	}
 
