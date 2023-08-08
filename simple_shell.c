@@ -11,8 +11,8 @@ int main(int argc, char **argv, char **env)
 	char *line = NULL;
 	size_t len = 0;
 	int fd = STDIN_FILENO;
-	ssize_t nchars_read;
-	char **tokstr;
+	ssize_t nchars_read, count = 0;
+	char **tokarray;
 
 	(void)argc, (void)argv, (void)env;
 
@@ -26,16 +26,17 @@ int main(int argc, char **argv, char **env)
 			free(line);
 			exit(0);
 		}
-		if (nchars_read == 1)
+		count = check_whitespace(line, nchars_read);
+		if (nchars_read == count)
 			continue;
-		tokstr = tokenizer(line, WHITESPACE);
-		if ((check_built_in(tokstr[0]) == 0))
+		tokarray = tokenizer(line, WHITESPACE);
+		if ((check_built_in(tokarray[0]) == 0))
 		{
-			free_tokens(tokstr);
+			free_tokens(tokarray);
 			continue;
 		}
-		check_status(tokstr[0]);
-		free_tokens(tokstr);
+		check_status(tokarray[0]);
+		free_tokens(tokarray);
 	}
 	free(line);
 	return (0);

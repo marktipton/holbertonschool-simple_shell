@@ -31,5 +31,6 @@ int check_access(char *file_path);
 void execute_command(char *line);
 char *path_append(char *tokenized_path, char *command);
 void free_tokens(char **tokens);
+int check_whitespace(char *line, ssize_t line_len);
 
 #endif
