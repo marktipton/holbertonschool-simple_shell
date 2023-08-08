@@ -21,7 +21,7 @@ int check_status(char *userinput)
 				result = 0;
 			}
 		}
-		else if (stat(full_path, &fileInfo) == 0) /*check if user put in existing cmd*/
+		else if (stat(full_path, &fileInfo) == 0) /*check if user put in cmd*/
 		{
 			if (check_access(full_path) == 0)
 			{
